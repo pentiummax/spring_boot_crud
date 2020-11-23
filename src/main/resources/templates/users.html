@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <div th:replace="fragments :: meta"></div>
+    <div th:replace="fragments::css"></div>
     <title>Users List</title>
 </head>
 <body>
-<div th:replace="fragments :: logout_button"></div>
+<div th:replace="fragments :: navbar"></div>
 <h1>Users List</h1>
 
 <div>
@@ -13,7 +14,7 @@
 </div>
 <br/><br/>
 <div>
-    <table border="1">
+    <table class="table">
         <tr>
             <th>Id</th>
             <th>Username</th>
@@ -45,5 +46,6 @@
     </table>
 </div>
 <br/><br/>
+<div th:replace="fragments :: js"></div>
 </body>
 </html>

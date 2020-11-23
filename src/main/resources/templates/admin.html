@@ -1,11 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="fragments :: meta"></div>
+    <div th:replace="fragments::css"></div>
     <title>Admin</title>
 </head>
 <body>
-    <div th:replace="fragments :: logout_button"></div>
-    <h1>Admin page</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <span class="navbar-text" style="color: white; font-weight: bold" sec:authentication="name"></span>
+                <span class="navbar-text" style="color: white">with roles:</span>
+                <span class="navbar-text" style="color: white" sec:authentication="principal.authorities"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/logout">logout</a>
+    </div>
+</nav>
+
+<div class="container-fluid d-flex min-vh-100 flex-column px-0 justify-content-center">
+    <div class="row flex-fill d-flex">
+        <div class="p-3 col">
+            <h2>ADMIN</h2>
+            <h2>USER</h2>
+        </div>
+        <div class="p-3 bg-light col-sm-11">
+            <h1>Admin panel</h1>
+            <div class="row">
+                <div class="col-8 col-sm-6">
+                    Level 2: .col-8 .col-sm-6
+                </div>
+                <div class="col-4 col-sm-6">
+                    Level 2: .col-4 .col-sm-6
+                </div>
+            </div>
+            <h3>All users</h3>
+            <table class="table border  table-hover" style="background-color: white">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user: ${users}">
+                    <th scope="row" th:text="${user.id}"></th>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td>
+                        <label th:each="role : ${user.roles}" th:text="${role.name()}">...</label>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info">Edit</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments :: js"></div>
 </body>
 </html>

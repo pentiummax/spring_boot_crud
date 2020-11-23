@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <div th:replace="fragments :: meta"></div>
+    <div th:replace="fragments::css"></div>
     <title>User</title>
 </head>
 <body>
-<div th:replace="fragments :: logout_button"></div>
+<div th:replace="fragments :: navbar"></div>
 <table>
     <tr>
         <td>ID</td>
@@ -38,5 +39,6 @@
         <td th:utext="${user.enabled}"></td>
     </tr>
 </table>
+<div th:replace="fragments :: js"></div>
 </body>
 </html>

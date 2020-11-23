@@ -23,8 +23,9 @@ public class AdminController {
     }
 
     @GetMapping("")
-    public String admin() {
-        return "redirect:/admin/users";
+    public String admin(Model model) {
+        model.addAttribute("users", userService.getUsersList());
+        return "admin";
     }
 
     @GetMapping("/users")

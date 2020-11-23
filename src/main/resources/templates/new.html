@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <div th:replace="fragments :: meta"></div>
+    <div th:replace="fragments::css"></div>
     <title>New User</title>
 </head>
 <body>
-<div th:replace="fragments :: logout_button"></div>
+<div th:replace="fragments :: navbar"></div>
 <h1>New User</h1>
 <form th:method="POST" th:action="@{/admin/users}"
       th:object="${user}">
@@ -69,5 +70,6 @@
     </table>
     <input type="submit" value="Create!"/>
 </form>
+<div th:replace="fragments :: js"></div>
 </body>
 </html>
