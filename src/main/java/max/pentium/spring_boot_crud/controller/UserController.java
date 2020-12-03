@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserController {
 
     private final UserService userService;
@@ -18,12 +18,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping(value = "/login")
+    public String loginPage() {
+        return "login";
+    }
+
+    @GetMapping("/user")
     public String getUser(Model model) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findByUsername(name);
+        User user = userService.findByEmail(name);
         model.addAttribute("user", user);
-        return "show";
+        return "user";
     }
 
 }

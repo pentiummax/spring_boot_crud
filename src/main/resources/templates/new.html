@@ -1,75 +1,87 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="fragments :: meta"></div>
-    <div th:replace="fragments::css"></div>
-    <title>New User</title>
+    <meta charset="UTF-8">
+    <title>Add</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-<div th:replace="fragments :: navbar"></div>
-<h1>New User</h1>
-<form th:method="POST" th:action="@{/admin/users}"
-      th:object="${user}">
-    <table>
-        <tr>
-            <td><label for="firstName">First name</label></td>
-            <td>:</td>
-            <td><input type="text" th:field="*{firstName}" id="firstName" /></td>
-        </tr>
-        <tr>
-            <td><label for="lastName">Second name</label></td>
-            <td>:</td>
-            <td><input type="text" th:field="*{lastName}" id="lastName"/></td>
-        </tr>
-        <tr>
-            <td><label for="email">Email</label></td>
-            <td>:</td>
-            <td><input type="text" th:field="*{email}" id="email"/></td>
-        </tr>
-        <tr>
-            <td><label for="username">Username</label></td>
-            <td>:</td>
-            <td><input type="text" th:field="*{username}" id="username"/></td>
-        </tr>
-        <tr>
-            <td><label for="password">Password</label></td>
-            <td>:</td>
-            <td><input type="text" th:field="*{password}" id="password"/></td>
-        </tr>
-        <tr>
-            <td><label for="account_non_expired">Is account non expired</label></td>
-            <td>:</td>
-            <td><input type="checkbox" th:field="*{accountNonExpired}" id="account_non_expired"/></td>
-        </tr>
-        <tr>
-            <td><label for="account_non_locked">Is account non locked</label></td>
-            <td>:</td>
-            <td><input type="checkbox" th:field="*{accountNonLocked}" id="account_non_locked"/></td>
-        </tr>
-        <tr>
-            <td><label for="credentials_non_expired">Is credentials non expired</label></td>
-            <td>:</td>
-            <td><input type="checkbox" th:field="*{credentialsNonExpired}" id="credentials_non_expired"/></td>
-        </tr>
-        <tr>
-            <td><label for="enabled">Is enabled</label></td>
-            <td>:</td>
-            <td><input type="checkbox" th:field="*{enabled}" id="enabled"/></td>
-        </tr>
-        <tr>
-            <td><label for="editRoles">ROLES</label></td>
-            <td>:</td>
-            <td>
-                <select th:field="*{roles}" id = "editRoles" name="roles" multiple size="2">
-                    <option th:each="role : ${all_roles}"
-                            th:value="${role}"
-                            th:text="${role.name()}"></option>
-                </select>
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="Create!"/>
-</form>
-<div th:replace="fragments :: js"></div>
+<div th:insert="fragments::header"></div>
+<div class="container-fluid d-flex min-vh-100 flex-column px-0 justify-content-center">
+    <div class="row flex-fill d-flex">
+        <div class="px-0 pt-3 col-2">
+            <div class="nav flex-column nav-pills">
+                <a class="nav-link active px-4" href="/admin">Admin</a>
+                <a class="nav-link px-4" href="/user">User</a>
+            </div>
+        </div>
+        <div class="col-10 p-3 px-4 bg-light">
+            <h1>Admin panel</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Users table</a>
+                </li>
+                <li>
+                    <a class="nav-link active" href="/admin/new">New User</a>
+                </li>
+            </ul>
+            <div class="card">
+                <div class="card-header">
+                    <h5>Add new user</h5>
+                </div>
+                <div class="card-body">
+                    <form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">First name</p>
+                                <input type="text" class="form-control" name="firstName" id="firstname" placeholder="First name" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Last name</p>
+                                <input type="text" class="form-control" name="lastName" id="lastname" placeholder="Last name" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Age</p>
+                                <input type="text" class="form-control" name="age" id="age" placeholder="Age" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Email</p>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Password</p>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-4">
+                                <p class="text-center font-weight-bold mb-md-0">Roles</p>
+                                <select class="form-control" id="editRoles" name="roles"
+                                        multiple size="2" required>
+                                    <option th:each="role : ${all_roles}"
+                                            th:value="${role}"
+                                            th:text="${role.name()}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <button type="submit" class="btn btn-success col-md-2">Add new user</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

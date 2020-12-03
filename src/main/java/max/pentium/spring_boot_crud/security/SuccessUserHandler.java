@@ -1,4 +1,4 @@
-package max.pentium.spring_boot_crud.config;
+package max.pentium.spring_boot_crud.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

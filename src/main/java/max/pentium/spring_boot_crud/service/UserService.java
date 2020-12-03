@@ -9,5 +9,5 @@ public interface UserService {
     void deleteUser(long id);
     User getUser(long id);
     List<User> getUsersList();
-    User findByUsername(String username);
+    User findByEmail(String email);
 }

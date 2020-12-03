@@ -1,6 +1,7 @@
-package max.pentium.spring_boot_crud.config;
+package max.pentium.spring_boot_crud.security;
 
 import max.pentium.spring_boot_crud.model.Role;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,13 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, proxyTargetClass = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(SuccessUserHandler successUserHandler, UserDetailsService userDetailsService) {
+    public SecurityConfig(SuccessUserHandler successUserHandler, @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.successUserHandler = successUserHandler;
         this.userDetailsService = userDetailsService;
     }
@@ -36,18 +37,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/login").anonymous()
                 .antMatchers("/user").hasAnyRole(Role.ADMIN.name(),
                 Role.USER.name())
                 .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin()
+                .loginPage("/login")
                 .successHandler(successUserHandler)
-                .and()
-                .logout().permitAll();
-//        http.authorizeRequests().antMatchers("/**").permitAll();
+                .loginProcessingUrl("/login")
+                .usernameParameter("j_email")
+                .passwordParameter("j_password");
     }
 
     @Bean
