@@ -27,7 +27,6 @@ public class AdminController {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        System.out.println(user);
         userService.saveUser(user);
         return "redirect:/admin";
     }
