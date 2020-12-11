@@ -5,7 +5,7 @@ function updateTable() {
         users.forEach(user => {
             let roles = '';
             user.roles.forEach(role => roles += role + " ");
-            table_body.innerHTML += "<tr><td>" + user.id +  "</td>" +
+            table_body.innerHTML += "<tr><td>" + user.id + "</td>" +
                 "<td>" + user.firstName + "</td>" +
                 "<td>" + user.lastName + "</td>" +
                 "<td>" + user.age + "</td>" +
@@ -22,25 +22,23 @@ showUsersTablePage()
 
 $("#editUserButton").click(function (event) {
 
-    document.querySelector('#edit_form').addEventListener('submit', function (event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        fetch("http://localhost:8080/admin/api/users/", {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({
-                id: $('#edit_id').val(),
-                firstName: $('#edit_firstname').val(),
-                lastName: $('#edit_lastname').val(),
-                age: $('#edit_age').val(),
-                email: $('#edit_email').val(),
-                password: $('#edit_password').val(),
-                roles: $('#edit_roles').val()
-            })
-        }).then(closeModal).then(updateTable)
-    })
+    fetch("http://localhost:8080/admin/api/users/", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+            id: $('#edit_id').val(),
+            firstName: $('#edit_firstname').val(),
+            lastName: $('#edit_lastname').val(),
+            age: $('#edit_age').val(),
+            email: $('#edit_email').val(),
+            password: $('#edit_password').val(),
+            roles: $('#edit_roles').val()
+        })
+    }).then(closeModal).then(updateTable)
 
     function closeModal() {
         $('#editModal').modal('hide');
@@ -49,36 +47,35 @@ $("#editUserButton").click(function (event) {
 })
 
 $("#deleteUserButton").click(function (event) {
-    document.querySelector('#delete_form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        fetch("http://localhost:8080/admin/api/users/" + document.getElementById("delete_id").value , {
-            method: "DELETE"
-        }).then(closeModal).then(updateTable)
-    })
+    event.preventDefault();
+    fetch("http://localhost:8080/admin/api/users/" + document.getElementById("delete_id").value, {
+        method: "DELETE"
+    }).then(closeModal).then(updateTable)
+
     function closeModal() {
         $("#deleteModal").modal("hide");
     }
 })
 
 $("#newUserButton").click(function (event) {
-    document.querySelector('#new_user_form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        fetch("http://localhost:8080/admin/api/users", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({
-                id: 0,
-                firstName: $('#firstname').val(),
-                lastName: $('#lastname').val(),
-                age: $('#age').val(),
-                email: $('#email').val(),
-                password: $('#password').val(),
-                roles: $('#roles').val()
-            })
-        }).then(showUsersTablePage)
-    })
+
+    event.preventDefault();
+    fetch("http://localhost:8080/admin/api/users", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+            id: 0,
+            firstName: $('#firstname').val(),
+            lastName: $('#lastname').val(),
+            age: $('#age').val(),
+            email: $('#email').val(),
+            password: $('#password').val(),
+            roles: $('#roles').val()
+        })
+    }).then(showUsersTablePage)
+
 })
 
 function showUsersTablePage() {
@@ -92,7 +89,7 @@ function showNewUserPage() {
     $("#new_user_page").show();
 }
 
-function setModalUserDataDelete(id){
+function setModalUserDataDelete(id) {
     fetch("http://localhost:8080/admin/api/users/" + id).then(response => response.json()).then(user => {
         document.getElementById('delete_id').value = user.id;
         document.getElementById('delete_firstname').value = user.firstName;
@@ -102,7 +99,7 @@ function setModalUserDataDelete(id){
     })
 }
 
-function setModalUserDataEdit(id){
+function setModalUserDataEdit(id) {
     fetch("http://localhost:8080/admin/api/users/" + id).then(response => response.json()).then(user => {
         document.getElementById('edit_id').value = user.id;
         document.getElementById('edit_firstname').value = user.firstName;
