@@ -93,7 +93,7 @@ function showNewUserPage() {
 }
 
 function setModalUserDataDelete(id){
-    $.getJSON("http://localhost:8080/admin/api/users/" + id, function (user) {
+    fetch("http://localhost:8080/admin/api/users/" + id).then(response => response.json()).then(user => {
         document.getElementById('delete_id').value = user.id;
         document.getElementById('delete_firstname').value = user.firstName;
         document.getElementById('delete_lastname').value = user.lastName;
@@ -103,7 +103,7 @@ function setModalUserDataDelete(id){
 }
 
 function setModalUserDataEdit(id){
-    $.getJSON("http://localhost:8080/admin/api/users/" + id, function (user) {
+    fetch("http://localhost:8080/admin/api/users/" + id).then(response => response.json()).then(user => {
         document.getElementById('edit_id').value = user.id;
         document.getElementById('edit_firstname').value = user.firstName;
         document.getElementById('edit_lastname').value = user.lastName;
