@@ -12,12 +12,12 @@ import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("admin/api/users")
-public class RestController {
+public class AdminRestController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    public RestController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AdminRestController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
