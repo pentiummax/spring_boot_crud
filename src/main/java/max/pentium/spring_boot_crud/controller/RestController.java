@@ -33,20 +33,23 @@ public class RestController {
     }
 
     @PostMapping("")
-    public void addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping("")
-    public void editUser(@RequestBody User user) {
+    public ResponseEntity<User> editUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
+        return ResponseEntity.ok("User with ID = " + id + " was deleted");
     }
 
 }
