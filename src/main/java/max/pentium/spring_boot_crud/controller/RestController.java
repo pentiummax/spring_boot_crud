@@ -3,6 +3,8 @@ package max.pentium.spring_boot_crud.controller;
 
 import max.pentium.spring_boot_crud.model.User;
 import max.pentium.spring_boot_crud.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +23,13 @@ public class RestController {
     }
 
     @GetMapping("")
-    public List<User> getUsers() {
-        return userService.getUsersList();
+    public ResponseEntity<List<User>> getUsers() {
+        return new ResponseEntity<>(userService.getUsersList(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
     @PostMapping("")
