@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@org.springframework.web.bind.annotation.RestController
+@RestController
 @RequestMapping("admin/api/users")
 public class AdminRestController {
 
