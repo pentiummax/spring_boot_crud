@@ -33,23 +33,23 @@ public class AdminRestController {
     }
 
     @PostMapping("")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<Void> addUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("")
-    public ResponseEntity<User> editUser(@RequestBody User user) {
+    public ResponseEntity<Void> editUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.ok("User with ID = " + id + " was deleted");
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }
